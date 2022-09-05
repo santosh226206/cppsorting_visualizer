@@ -101,75 +101,6 @@ void visualize(int x = -1, int y = -1, int z = -1)
     SDL_RenderPresent(renderer);
 }
 
-void inplaceHeapSort(int* input, int n)
-{
-    for (int i = 1; i < n; i++)
-    {
-        int childIndex = i;
-        int parentIndex = (childIndex - 1) / 2;
-
-        while (childIndex > 0)
-        {
-            if (input[childIndex] > input[parentIndex])
-            {
-                int temp = input[parentIndex];
-                input[parentIndex] = input[childIndex];
-                input[childIndex] = temp;
-
-            }
-            else
-            {
-                break;
-            }
-
-            visualize(parentIndex, childIndex);
-            SDL_Delay(40);
-
-            childIndex = parentIndex;
-            parentIndex = (childIndex - 1) / 2;
-        }
-    }
-
-    for (int heapLast = n - 1; heapLast >= 0; heapLast--)
-    {
-        int temp = input[0];
-        input[0] = input[heapLast];
-        input[heapLast] = temp;
-
-        int parentIndex = 0;
-        int leftChildIndex = 2 * parentIndex + 1;
-        int rightChildIndex = 2 * parentIndex + 2;
-
-        while (leftChildIndex < heapLast)
-        {
-            int maxIndex = parentIndex;
-
-            if (input[leftChildIndex] > input[maxIndex])
-            {
-                maxIndex = leftChildIndex;
-            }
-            if (rightChildIndex<heapLast && input[rightChildIndex]>input[maxIndex])
-            {
-                maxIndex = rightChildIndex;
-            }
-            if (maxIndex == parentIndex)
-            {
-                break;
-            }
-
-            int temp = input[parentIndex];
-            input[parentIndex] = input[maxIndex];
-            input[maxIndex] = temp;
-
-            visualize(maxIndex, parentIndex, heapLast);
-            SDL_Delay(40);
-
-            parentIndex = maxIndex;
-            leftChildIndex = 2 * parentIndex + 1;
-            rightChildIndex = 2 * parentIndex + 2;
-        }
-    }
-}
 
 int partition_array(int a[], int si, int ei)
 {
@@ -444,14 +375,7 @@ void execute()
                         complete = true;
                         cout << "\nQUICK SORT COMPLETE.\n";
                         break;
-                    case(SDLK_6):
-                        loadArr();
-                        cout << "\nHEAP SORT STARTED.\n";
-                        complete = false;
-                        inplaceHeapSort(arr, arrSize);
-                        complete = true;
-                        cout << "\nHEAP SORT COMPLETE.\n";
-                        break;
+                    
                     }
                 }
             }
@@ -471,7 +395,6 @@ bool controls()
         << "    Use 3 to start Bubble Sort Algorithm.\n"
         << "    Use 4 to start Merge Sort Algorithm.\n"
         << "    Use 5 to start Quick Sort Algorithm.\n"
-        << "    Use 6 to start Heap Sort Algorithm.\n"
         << "    Use q to exit out of Sorting Visualizer\n\n"
         << "PRESS ENTER TO START SORTING VISUALIZER...\n\n"
         << "Or type -1 and press ENTER to quit the program.";
@@ -494,7 +417,7 @@ void intro()
     cout << "==============================Sorting Visualizer==============================\n\n"
         << "Visualization of different sorting algorithms in C++ with SDL2 Library. A sorting algorithm is an algorithm that puts the elements of a list in a certain order. While there are a large number of sorting algorithms, in practical implementations a few algorithms predominate.\n"
         << "In this implementation of sorting visualizer, we'll be looking at some of these sorting algorithms and visually comprehend their working.\n"
-        << "The sorting algorithms covered here are Selection Sort, Insertion Sort, Bubble Sort, Merge Sort, Quick Sort and Heap Sort.\n"
+        << "The sorting algorithms covered here are Selection Sort, Insertion Sort, Bubble Sort, Merge Sort, Quick Sort.\n"
         << "The list size is fixed to 130 elements. You can randomize the list and select any type of sorting algorithm to call on the list from the given options. Here, all sorting algorithms will sort the elements in ascending order. The sorting time being visualized for an algorithm is not exactly same as their actual time complexities. The relatively faster algorithms like Merge Sort, etc. have been delayed so that they could be properly visualized.\n\n"
         << "Press ENTER to show controls...";
 
